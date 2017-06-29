@@ -1,0 +1,41 @@
+{
+  "name": "jriext2-manager-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compiled/main/main.js",
+  "scripts": {
+    "test": "./node_modules/.bin/standard --fix && gulp test",
+    "start": "gulp test && ./node_modules/.bin/electron ."
+  },
+  "standard": {
+    "globals": [
+      "$"
+    ],
+    "ignore": [
+      "/public/**"
+    ]
+  },
+  "author": "byron1st",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "del": "^3.0.0",
+    "devtron": "^1.4.0",
+    "electron": "^1.6.11",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-electron-mocha": "^1.3.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "standard": "^10.0.2"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1"
+  }
+}
