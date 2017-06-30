@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { Section, Button, ButtonType } from './common'
 
-export default class ClasspathSection extends Component {
+class ClasspathSection extends Component {
   render () {
     return (
       <Section title='Classpath'>
         <div style={styles.container}>
-          <h4 style={styles.text}>path/to/target/system/class/path</h4>
+          <h4 style={styles.text}>{this.props.classpath}</h4>
           <Button
             buttonType={ButtonType.SECONDARY}
           >
@@ -33,5 +34,14 @@ const styles = {
   }
 }
 
-ClasspathSection.propTypes = {
+const mapStateToProps = (state) => {
+  return {
+    classpath: state.config.classpath
+  }
 }
+
+ClasspathSection.propTypes = {
+  classpath: PropTypes.string
+}
+
+export default connect(mapStateToProps)(ClasspathSection)

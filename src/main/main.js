@@ -6,7 +6,7 @@ import { exec } from 'child_process'
 
 import testMode from './app.mode'
 
-const JRIEXT2 = '/Users/byron1st/Developer/Workspace/IntelliJ/jriext2/build/install/jriext2/bin/jriext2'
+const JRIEXT2 = '/Users/byron1st/Developer/Workspace/Java/jriext2/build/install/jriext2/bin/jriext2'
 
 const KEY_ERROR = 'error'
 const KEY_DONE = 'done'
@@ -21,7 +21,7 @@ ipcMain.on('send-command', (event, command) => {
 })
 
 function initialize () {
-  // executeJRiExt2()
+  executeJRiExt2()
   createMainWindow()
 }
 
@@ -48,7 +48,7 @@ function createMainWindow () {
   if (testMode) {
     // A path to React Developer Tools(Chrome plugin)
     // URL: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
-    BrowserWindow.addDevToolsExtension('/Users/byron1st/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.3.3_0')
+    BrowserWindow.addDevToolsExtension('/Users/byron1st/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.4.0_0')
     mainWindow.webContents.openDevTools()
   }
 }

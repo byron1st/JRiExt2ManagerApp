@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
 
+import ConfigReducers from './ConfigReducers'
+
 export default combineReducers({
-  classpath: () => { return '' },
-  mainList: () => { return '' },
+  config: ConfigReducers,
   messageList: () => { return '' },
   status: () => { return '' }
 })

@@ -1,45 +1,26 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { Section, Button, ButtonType } from './common'
+import { Section } from './common'
+import MainListItem from './MainListItem'
 
-export default class MainListContainer extends Component {
+class MainListContainer extends Component {
+  renderMainList (mainList) {
+    return mainList.map(main => {
+      return <MainListItem
+        main={main}
+        onClick={() => console.log('hello')}
+        key={main.shortcut}
+      />
+    })
+  }
+
   render () {
     return (
       <Section title='Main classes'>
         <div style={styles.container}>
-          <div style={styles.itemContainer}>
-            <h4 style={styles.text}>package/to/main/class</h4>
-            <Button
-              buttonType={ButtonType.SECONDARY}
-            >
-              Run
-            </Button>
-          </div>
-          <div style={styles.itemContainer}>
-            <h4 style={styles.text}>package/to/main/class</h4>
-            <Button
-              buttonType={ButtonType.SECONDARY}
-            >
-              Run
-            </Button>
-          </div>
-          <div style={styles.itemContainer}>
-            <h4 style={styles.text}>package/to/main/class</h4>
-            <Button
-              buttonType={ButtonType.SECONDARY}
-            >
-              Run
-            </Button>
-          </div>
-          <div style={styles.itemContainer}>
-            <h4 style={styles.text}>package/to/main/class</h4>
-            <Button
-              buttonType={ButtonType.SECONDARY}
-            >
-              Run
-            </Button>
-          </div>
+          {this.renderMainList(this.props.mainList)}
         </div>
       </Section>
     )
@@ -50,25 +31,20 @@ const styles = {
   container: {
     height: 100,
     overflow: 'scroll'
-  },
-  itemContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5,
-    paddingBottom: 5,
-    borderStyle: 'solid',
-    borderWidth: 0,
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    height: 30
-  },
-  text: {
-    margin: 0,
-    fontStyle: 'italic',
-    fontFamily: 'monospace'
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    mainList: state.config.mainList
   }
 }
 
 MainListContainer.propTypes = {
+  mainList: PropTypes.arrayOf(PropTypes.shape({
+    shortcut: PropTypes.string,
+    mainClassName: PropTypes.string.isRequired
+  }))
 }
+
+export default connect(mapStateToProps)(MainListContainer)
