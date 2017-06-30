@@ -9,40 +9,19 @@ import {
   quit,
   execute
 } from '../command'
+import CoreButtonsSection from './CoreButtonsSection.js'
+import ClasspathSection from './ClasspathSection'
+import MainListSection from './MainListSection'
+import MessageSection from './MessageSection'
 
 class Window extends Component {
   render () {
     return (
       <div style={styles.container}>
-        <div style={styles.buttonContainer}>
-          <button>Get a config</button>
-          <button>Get a ETTypes</button>
-          <button>Instrumentation</button>
-        </div>
-        <div style={styles.classpathContainer}>
-          <h4>class path</h4>
-          <button>Open</button>
-        </div>
-        <div style={styles.mainListContainer}>
-          <div style={styles.mainContainer}>
-            <h4>main 1</h4>
-            <button>Run</button>
-          </div>
-          <div style={styles.mainContainer}>
-            <h4>main 1</h4>
-            <button>Run</button>
-          </div>
-          <div style={styles.mainContainer}>
-            <h4>main 1</h4>
-            <button>Run</button>
-          </div>
-        </div>
-        <div style={styles.messageContainer}>
-          <h4>message</h4>
-          <h4>message</h4>
-          <h4>message</h4>
-          <h4>message</h4>
-        </div>
+        <CoreButtonsSection />
+        <ClasspathSection />
+        <MainListSection />
+        <MessageSection />
       </div>
     )
   }
@@ -50,26 +29,6 @@ class Window extends Component {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  classpathContainer: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  mainListContainer: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  mainContainer: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  messageContainer: {
     display: 'flex',
     flexDirection: 'column'
   }

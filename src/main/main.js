@@ -21,7 +21,7 @@ ipcMain.on('send-command', (event, command) => {
 })
 
 function initialize () {
-  executeJRiExt2()
+  // executeJRiExt2()
   createMainWindow()
 }
 
@@ -34,10 +34,11 @@ function executeJRiExt2 () {
 
 function createMainWindow () {
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 800,
-    minWidth: 800,
-    minHeight: 700
+    width: 800,
+    height: 700,
+    resizable: false,
+    fullscreen: false,
+    title: 'JRiExt2 Manager'
   })
   mainWindow.loadURL(path.join('file://', __dirname, '/../mainwindow/index.html'))
   mainWindow.on('closed', () => {
