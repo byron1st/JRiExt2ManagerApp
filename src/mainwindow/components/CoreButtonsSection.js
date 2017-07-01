@@ -44,7 +44,7 @@ class CoreButtonsSection extends Component {
 
   render () {
     return (
-      <Section title='Core buttons'>
+      <Section title='Menu'>
         <div style={styles.container}>
           <Button buttonType={ButtonType.PRIMARY} onClick={this.loadConfig.bind(this)}>Get a config</Button>
           <Button buttonType={ButtonType.PRIMARY} onClick={this.startInst.bind(this)}>Instrumentation</Button>

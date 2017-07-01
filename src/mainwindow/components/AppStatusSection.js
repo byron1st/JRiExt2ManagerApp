@@ -16,12 +16,16 @@ class AppStatusSection extends Component {
     return (
       <Section>
         <div style={styles.container}>
-          <div style={this.getStatuslightStyle(APP_STATUS.CONFIG_LOADED, this.props.status)}>
-            CONFIG_LOADED
+          <div style={this.getStatuslightStyle(APP_STATUS.READY, this.props.status)}>
+            READY
           </div>
-          &nbsp;/&nbsp;
+          &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
+          <div style={this.getStatuslightStyle(APP_STATUS.CONFIG_LOADED, this.props.status)}>
+            CONFIG LOADED
+          </div>
+          &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
           <div style={this.getStatuslightStyle(APP_STATUS.INST_DONE, this.props.status)}>
-            INST_DONE
+            INST. DONE
           </div>
         </div>
       </Section>

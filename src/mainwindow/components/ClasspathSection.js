@@ -5,16 +5,24 @@ import PropTypes from 'prop-types'
 import { Section, Button, ButtonType } from './common'
 
 class ClasspathSection extends Component {
+  renderButton (classpath) {
+    if (classpath) {
+      return (
+        <Button
+          buttonType={ButtonType.SECONDARY}
+        >
+          Open
+        </Button>
+      )
+    }
+  }
+
   render () {
     return (
       <Section title='Classpath'>
         <div style={styles.container}>
           <h4 style={styles.text}>{this.props.classpath}</h4>
-          <Button
-            buttonType={ButtonType.SECONDARY}
-          >
-            Open
-          </Button>
+          {this.renderButton(this.props.classpath)}
         </div>
       </Section>
     )

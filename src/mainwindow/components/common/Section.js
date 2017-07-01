@@ -41,8 +41,7 @@ const styles = {
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: '#ddd',
-    boxShadow: '2px 2px 3px #000',
+    borderColor: 'rgb(212, 212, 212)',
     margin: '5px',
     padding: '5px'
   },

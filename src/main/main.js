@@ -32,9 +32,9 @@ function executeJRiExt2 () {
 function createMainWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 710,
-    resizable: false,
+    height: 700,
     fullscreen: false,
+    resizable: false,
     title: 'JRiExt2 Manager'
   })
   mainWindow.loadURL(path.join('file://', __dirname, '/../mainwindow/index.html'))
