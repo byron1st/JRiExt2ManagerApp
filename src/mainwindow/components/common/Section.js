@@ -43,7 +43,7 @@ const styles = {
     borderRadius: 3,
     borderColor: '#ddd',
     boxShadow: '2px 2px 3px #000',
-    margin: '10px',
+    margin: '5px',
     padding: '5px'
   },
   title: {

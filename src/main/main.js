@@ -35,7 +35,7 @@ function executeJRiExt2 () {
 function createMainWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 700,
+    height: 710,
     resizable: false,
     fullscreen: false,
     title: 'JRiExt2 Manager'

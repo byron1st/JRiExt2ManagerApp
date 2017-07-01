@@ -9,7 +9,8 @@ import {
   quit,
   execute
 } from '../command'
-import CoreButtonsSection from './CoreButtonsSection.js'
+import AppStatusSection from './AppStatusSection'
+import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
 import MainListSection from './MainListSection'
 import MessageSection from './MessageSection'
@@ -18,6 +19,7 @@ class Window extends Component {
   render () {
     return (
       <div style={styles.container}>
+        <AppStatusSection />
         <CoreButtonsSection />
         <ClasspathSection />
         <MainListSection />
