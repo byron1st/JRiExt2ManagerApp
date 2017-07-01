@@ -7,9 +7,9 @@ import { ipcRenderer, remote } from 'electron'
 import AppStatusSection from './AppStatusSection'
 import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
-import MainListSection from './MainListSection'
+import ExecListSection from './ExecListSection'
 import MessageSection from './MessageSection'
-import { changeAppStatus, changeAllMainReady } from '../actions'
+import { changeAppStatus, changeAllExecReady } from '../actions'
 import { APP_STATUS } from '../actions/types'
 
 class Window extends Component {
@@ -24,7 +24,7 @@ class Window extends Component {
       switch (body) {
         case MSG.INST:
           this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
-          this.props.changeAllMainReady()
+          this.props.changeAllExecReady()
           break
         default:
           break
@@ -42,7 +42,7 @@ class Window extends Component {
         <AppStatusSection />
         <CoreButtonsSection />
         <ClasspathSection />
-        <MainListSection />
+        <ExecListSection />
         <MessageSection />
       </div>
     )
@@ -56,7 +56,7 @@ const styles = {
   }
 }
 
-export default connect(null, { changeAppStatus, changeAllMainReady })(Window)
+export default connect(null, { changeAppStatus, changeAllExecReady })(Window)
 
 // export default class Window extends Component {
 //   requestInst () {

@@ -4,27 +4,27 @@ import PropTypes from 'prop-types'
 
 import { Section } from './common'
 import { APP_STATUS } from '../actions/types'
-import MainListItem from './MainListItem'
+import ExecListItem from './ExecListItem'
 
-class MainListContainer extends Component {
-  renderMainList (mainList) {
+class ExecListContainer extends Component {
+  renderExecList (execList) {
     const isRunButtonVisible = this.props.status >= APP_STATUS.INST_DONE
 
-    return mainList.map(main => {
-      return <MainListItem
-        main={main}
+    return execList.map(exec => {
+      return <ExecListItem
+        exec={exec}
         onClick={() => console.log('hello')}
         isRunButtonVisible={isRunButtonVisible}
-        key={main.shortcut}
+        key={exec.uniqueName}
       />
     })
   }
 
   render () {
     return (
-      <Section title='Main classes'>
+      <Section title='Executables'>
         <div style={styles.container}>
-          {this.renderMainList(this.props.mainList)}
+          {this.renderExecList(this.props.execList)}
         </div>
       </Section>
     )
@@ -41,17 +41,17 @@ const styles = {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    mainList: state.config.mainList,
+    execList: state.config.execList,
     status: state.status
   }
 }
 
-MainListContainer.propTypes = {
-  mainList: PropTypes.arrayOf(PropTypes.shape({
+ExecListContainer.propTypes = {
+  execList: PropTypes.arrayOf(PropTypes.shape({
     shortcut: PropTypes.string,
     mainClassName: PropTypes.string.isRequired
   })),
   status: PropTypes.oneOf([0, 1, 2, 3])
 }
 
-export default connect(mapStateToProps)(MainListContainer)
+export default connect(mapStateToProps)(ExecListContainer)

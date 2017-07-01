@@ -8,8 +8,8 @@ import { loadConfig, startInst } from '../actions'
 
 class CoreButtonsSection extends Component {
   checkConfigValidation (config) {
-    return config.classpath && config.mainList && config.ettypeList &&
-      Array.isArray(config.mainList) && Array.isArray(config.ettypeList) && typeof config.classpath === 'string'
+    return config.classpath && config.execList && config.ettypeList &&
+      Array.isArray(config.execList) && Array.isArray(config.ettypeList) && typeof config.classpath === 'string'
   }
 
   handleConfigFilePath (configFilePath) {

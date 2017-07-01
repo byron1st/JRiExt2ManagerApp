@@ -2,43 +2,43 @@ import _ from 'lodash'
 
 import {
   LOAD_CONFIG,
-  MAIN_STATUS,
-  CHANGE_MAIN_STATUS,
-  CHANGE_ALL_MAIN_READY
+  EXEC_STATUS,
+  CHANGE_EXEC_STATUS,
+  CHANGE_ALL_EXEC_READY
 } from '../actions/types'
 
 const INITIAL_STATE = {
   classpath: '',
-  mainList: [],
+  execList: [],
   ettypeList: []
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOAD_CONFIG:
-      const { classpath, mainList, ettypeList } = action.payload
+      const { classpath, execList, ettypeList } = action.payload
 
       return Object.assign({}, state,
         {
           classpath: classpath,
-          mainList: mainList.map(main => {
-            return Object.assign({}, main, { status: MAIN_STATUS.BEFORE_READY })
+          execList: execList.map(main => {
+            return Object.assign({}, main, { status: EXEC_STATUS.BEFORE_READY })
           }),
           ettypeList: ettypeList
         }
       )
-    case CHANGE_ALL_MAIN_READY:
+    case CHANGE_ALL_EXEC_READY:
       return Object.assign({}, state,
         {
-          mainList: state.mainList.map(main => {
-            return Object.assign({}, main, { status: MAIN_STATUS.EXEC_READY })
+          execList: state.execList.map(main => {
+            return Object.assign({}, main, { status: EXEC_STATUS.EXEC_READY })
           })
         }
       )
-    case CHANGE_MAIN_STATUS:
-      let newMainList = _.cloneDeep(state.mainList)
-      newMainList[action.payload.index].status = action.payload.mainStatus
-      return Object.assign({}, state, { mainList: newMainList })
+    case CHANGE_EXEC_STATUS:
+      let newExecList = _.cloneDeep(state.execList)
+      newExecList[action.payload.index].status = action.payload.mainStatus
+      return Object.assign({}, state, { execList: newExecList })
     default:
       return state
   }

@@ -11,9 +11,9 @@ export const APP_STATUS = {
 }
 
 // Change the status of a main
-export const CHANGE_MAIN_STATUS = 'change-main-status'
-export const CHANGE_ALL_MAIN_READY = 'change-all-main-ready'
-export const MAIN_STATUS = {
+export const CHANGE_EXEC_STATUS = 'change-exec-status'
+export const CHANGE_ALL_EXEC_READY = 'change-all-exec-ready'
+export const EXEC_STATUS = {
   BEFORE_READY: 0,
   EXEC_READY: 1,
   EXEC_ONGOING: 2,

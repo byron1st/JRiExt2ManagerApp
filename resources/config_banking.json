@@ -1,9 +1,10 @@
 {
   "classpath":"/Users/byron1st/Downloads/bdps/execute/bin",
-  "mainList":[
+  "execList":[
     {
-      "shortcut":"main",
-      "mainClassName":"framework/PFSystemMain"
+      "uniqueName":"main",
+      "executable":"framework/PFSystemMain",
+      "mainClassName": "framework/PFSystemMain"
     }
   ],
   "ettypeList": [
