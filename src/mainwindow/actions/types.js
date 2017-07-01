@@ -1,4 +1,4 @@
-export const GET_CONFIG = 'get-config'
+export const LOAD_CONFIG = 'load-config'
 
 // Change the app status
 export const CHANGE_APP_STATUS = 'change-app-status'
