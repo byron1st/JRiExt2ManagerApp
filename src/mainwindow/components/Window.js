@@ -1,14 +1,40 @@
 'use strict'
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ipcRenderer, remote } from 'electron'
 
 import AppStatusSection from './AppStatusSection'
 import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
 import MainListSection from './MainListSection'
 import MessageSection from './MessageSection'
+import { changeAppStatus } from '../actions'
+import { APP_STATUS } from '../actions/types'
 
 class Window extends Component {
+  componentWillMount () {
+    const MSG = {
+      INST: 'msg.inst',
+      EXEC: 'msg.exec',
+      QUIT: 'msg.quit'
+    }
+
+    ipcRenderer.on('done-response', (event, body) => {
+      switch (body) {
+        case MSG.INST:
+          this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
+          break
+        default:
+          break
+      }
+    })
+
+    ipcRenderer.on('error-response', (event, body) => {
+      remote.dialog.showErrorBox('JRiExt2 throws an error!', body)
+    })
+  }
+
   render () {
     return (
       <div style={styles.container}>
@@ -29,7 +55,7 @@ const styles = {
   }
 }
 
-export default Window
+export default connect(null, { changeAppStatus })(Window)
 
 // export default class Window extends Component {
 //   requestInst () {

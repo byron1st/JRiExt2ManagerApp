@@ -3,16 +3,15 @@ import PropTypes from 'prop-types'
 
 import { Button, ButtonType } from './common'
 
-const MainListItem = ({ main, onClick }) => {
+const MainListItem = ({ main, onClick, isRunButtonVisible }) => {
+  const renderButton = isRunButtonVisible
+    ? <Button buttonType={ButtonType.SECONDARY} onClick={onClick}>Run</Button>
+    : ''
+
   return (
     <div style={styles.container}>
       <h4 style={styles.text}>({main.shortcut}) {main.mainClassName}</h4>
-      <Button
-        buttonType={ButtonType.SECONDARY}
-        onClick={onClick}
-      >
-        Run
-      </Button>
+      {renderButton}
     </div>
   )
 }
@@ -42,7 +41,8 @@ MainListItem.propTypes = {
     shortcut: PropTypes.string,
     mainClassName: PropTypes.string.isRequired
   }),
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  isRunButtonVisible: PropTypes.bool.isRequired
 }
 
 export default MainListItem

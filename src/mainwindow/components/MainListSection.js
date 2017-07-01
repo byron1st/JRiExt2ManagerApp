@@ -3,14 +3,18 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { Section } from './common'
+import { APP_STATUS } from '../actions/types'
 import MainListItem from './MainListItem'
 
 class MainListContainer extends Component {
   renderMainList (mainList) {
+    const isRunButtonVisible = this.props.status >= APP_STATUS.INST_DONE
+
     return mainList.map(main => {
       return <MainListItem
         main={main}
         onClick={() => console.log('hello')}
+        isRunButtonVisible={isRunButtonVisible}
         key={main.shortcut}
       />
     })
@@ -36,7 +40,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    mainList: state.config.mainList
+    mainList: state.config.mainList,
+    status: state.status
   }
 }
 
@@ -44,7 +49,8 @@ MainListContainer.propTypes = {
   mainList: PropTypes.arrayOf(PropTypes.shape({
     shortcut: PropTypes.string,
     mainClassName: PropTypes.string.isRequired
-  }))
+  })),
+  status: PropTypes.oneOf([0, 1, 2, 3])
 }
 
 export default connect(mapStateToProps)(MainListContainer)

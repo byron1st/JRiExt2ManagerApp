@@ -8,9 +8,6 @@ import testMode from './app.mode'
 
 const JRIEXT2 = '/Users/byron1st/Developer/Workspace/Java/jriext2/build/install/jriext2/bin/jriext2'
 
-const KEY_ERROR = 'error'
-const KEY_DONE = 'done'
-
 let mainWindow = null
 let jriext2 = null
 
@@ -54,14 +51,17 @@ function createMainWindow () {
 }
 
 function getResponseFromJRiExt2 (data) {
+  const KEY_ERROR = 'error'
+  const KEY_DONE = 'done'
+
   const message = JSON.parse(data)
 
   switch (message.key) {
     case KEY_ERROR:
-      console.log(message.body)
+      sendToRenderer('error-response', message.body)
       break
     case KEY_DONE:
-      console.log(message.body)
+      sendToRenderer('done-response', message.body)
       break
     default:
       break
@@ -74,5 +74,11 @@ function sendToJRiExt2 (command) {
   } catch (e) {
     console.log(e)
     console.log(command)
+  }
+}
+
+function sendToRenderer (channel, args) {
+  if (mainWindow) {
+    mainWindow.webContents.send(channel, args)
   }
 }
