@@ -9,7 +9,7 @@ import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
 import MainListSection from './MainListSection'
 import MessageSection from './MessageSection'
-import { changeAppStatus } from '../actions'
+import { changeAppStatus, changeAllMainReady } from '../actions'
 import { APP_STATUS } from '../actions/types'
 
 class Window extends Component {
@@ -24,6 +24,7 @@ class Window extends Component {
       switch (body) {
         case MSG.INST:
           this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
+          this.props.changeAllMainReady()
           break
         default:
           break
@@ -55,7 +56,7 @@ const styles = {
   }
 }
 
-export default connect(null, { changeAppStatus })(Window)
+export default connect(null, { changeAppStatus, changeAllMainReady })(Window)
 
 // export default class Window extends Component {
 //   requestInst () {

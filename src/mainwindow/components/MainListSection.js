@@ -39,6 +39,7 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     mainList: state.config.mainList,
     status: state.status
