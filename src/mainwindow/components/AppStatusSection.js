@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { ipcRenderer } from 'electron'
 
 import { Section } from './common'
 import { APP_STATUS } from '../actions/types'
@@ -13,11 +14,13 @@ class AppStatusSection extends Component {
   }
 
   render () {
+    const jriext2Pid = ipcRenderer.sendSync('get-jriext2-pid')
+
     return (
       <Section>
         <div style={styles.container}>
           <div style={this.getStatuslightStyle(APP_STATUS.READY, this.props.status)}>
-            READY
+            READY JRiExt2 (pid: {jriext2Pid})
           </div>
           &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
           <div style={this.getStatuslightStyle(APP_STATUS.CONFIG_LOADED, this.props.status)}>

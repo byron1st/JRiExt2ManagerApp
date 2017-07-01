@@ -17,6 +17,10 @@ ipcMain.on('send-command', (event, command) => {
   sendToJRiExt2(command)
 })
 
+ipcMain.on('get-jriext2-pid', (event) => {
+  event.returnValue = jriext2.pid
+})
+
 function initialize () {
   executeJRiExt2()
   createMainWindow()
