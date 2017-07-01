@@ -1,14 +1,14 @@
 'use strict'
 
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { ipcRenderer } from 'electron'
+// import PropTypes from 'prop-types'
+// import { ipcRenderer } from 'electron'
 
-import {
-  instrument,
-  quit,
-  execute
-} from '../command'
+// import {
+//   instrument,
+//   quit,
+//   execute
+// } from '../command'
 import AppStatusSection from './AppStatusSection'
 import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
