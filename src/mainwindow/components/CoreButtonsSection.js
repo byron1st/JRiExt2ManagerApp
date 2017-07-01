@@ -4,7 +4,7 @@ import { remote } from 'electron'
 import fs from 'fs'
 
 import { Section, Button, ButtonType } from './common'
-import { loadConfig } from '../actions'
+import { loadConfig, startInst } from '../actions'
 
 class CoreButtonsSection extends Component {
   checkConfigValidation (config) {
@@ -35,12 +35,19 @@ class CoreButtonsSection extends Component {
     })
   }
 
+  startInst () {
+    this.props.startInst({
+      classpath: this.props.classpath,
+      ettypeList: this.props.ettypeList
+    })
+  }
+
   render () {
     return (
       <Section title='Core buttons'>
         <div style={styles.container}>
           <Button buttonType={ButtonType.PRIMARY} onClick={this.loadConfig.bind(this)}>Get a config</Button>
-          <Button buttonType={ButtonType.PRIMARY}>Instrumentation</Button>
+          <Button buttonType={ButtonType.PRIMARY} onClick={this.startInst.bind(this)}>Instrumentation</Button>
         </div>
       </Section>
     )
@@ -54,4 +61,11 @@ const styles = {
   }
 }
 
-export default connect(null, { loadConfig })(CoreButtonsSection)
+const mapStateToProps = (state) => {
+  return {
+    classpath: state.config.classpath,
+    ettypeList: state.config.ettypeList
+  }
+}
+
+export default connect(mapStateToProps, { loadConfig, startInst })(CoreButtonsSection)

@@ -1,19 +1,20 @@
 const CMD = {
-  INST: 'inst',
-  EXECUTE: 'execute',
-  QUIT: 'quit'
+  INST: 'cmd.inst',
+  EXEC: 'cmd.exec',
+  STOP: 'cmd.stop',
+  QUIT: 'cmd.quit'
 }
 
-export const instrument = (targetClassPath, ettypeDefFilePath) => {
+export const instrument = (classpath, ettypeList) => {
   return {
     cmd: CMD.INST,
-    args: [targetClassPath, ettypeDefFilePath]
+    args: [classpath, ettypeList]
   }
 }
 
 export const execute = (mainClassName, outputFilePath, errorFilePath) => {
   return {
-    cmd: CMD.EXECUTE,
+    cmd: CMD.EXEC,
     args: [mainClassName, outputFilePath, errorFilePath]
   }
 }
