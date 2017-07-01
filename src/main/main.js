@@ -27,7 +27,7 @@ function initialize () {
 
 function executeJRiExt2 () {
   jriext2 = exec(JRIEXT2, (error) => console.log(error))
-  jriext2.stdout.on('data', IPCtoJRiExt2)
+  jriext2.stdout.on('data', getResponseFromJRiExt2)
   jriext2.on('error', error => console.log(error))
   jriext2.on('close', () => console.log('closed'))
 }
@@ -53,7 +53,7 @@ function createMainWindow () {
   }
 }
 
-function IPCtoJRiExt2 (data) {
+function getResponseFromJRiExt2 (data) {
   const message = JSON.parse(data)
 
   switch (message.key) {
