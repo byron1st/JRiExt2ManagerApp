@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-const Section = (props) => {
-  const {
-    title,
-    customStyle,
-    children
-  } = props
+class Section extends Component {
+  renderHeader (title) {
+    if (title) {
+      return (
+        <div>
+          <h3 style={styles.title}>{title}</h3>
+          <hr style={styles.hr} />
+        </div>
+      )
+    }
+  }
 
-  return (
-    <div style={Object.assign({}, styles.container, customStyle)}>
-      <h3 style={styles.title}>{title}</h3>
-      <hr style={styles.hr} />
-      {children}
-    </div>
-  )
+  render () {
+    const {
+      title,
+      customStyle,
+      children
+    } = this.props
+
+    return (
+      <div style={Object.assign({}, styles.container, customStyle)}>
+        {this.renderHeader(title)}
+        {children}
+      </div>
+    )
+  }
 }
 
 Section.propTypes = {
