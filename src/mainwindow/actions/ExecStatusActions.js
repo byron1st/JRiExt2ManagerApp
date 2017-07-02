@@ -3,10 +3,10 @@ import {
   CHANGE_ALL_EXEC_READY
 } from './types'
 
-export const changeExecStatus = ({ index, mainStatus }) => {
+export const changeExecStatus = ({ index, execStatus }) => {
   return {
     type: CHANGE_EXEC_STATUS,
-    payload: { index, mainStatus }
+    payload: { index, execStatus }
   }
 }
 

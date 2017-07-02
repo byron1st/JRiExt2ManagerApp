@@ -14,21 +14,19 @@ import { APP_STATUS } from '../actions/types'
 
 class Window extends Component {
   componentWillMount () {
-    const MSG = {
-      INST: 'msg.inst',
-      EXEC: 'msg.exec',
-      QUIT: 'msg.quit'
-    }
+    ipcRenderer.on('done-inst', () => {
+      this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
+      this.props.changeAllExecReady()
+    })
 
-    ipcRenderer.on('done-response', (event, body) => {
-      switch (body) {
-        case MSG.INST:
-          this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
-          this.props.changeAllExecReady()
-          break
-        default:
-          break
-      }
+    ipcRenderer.on('done-exec', (event, startedProcessKey) => {
+      // TODO: process is started
+      console.log(startedProcessKey)
+    })
+
+    ipcRenderer.on('term-exec', (event, terminatedProcessKey) => {
+      // TODO: process is terminated
+      console.log(terminatedProcessKey)
     })
 
     ipcRenderer.on('error-response', (event, body) => {

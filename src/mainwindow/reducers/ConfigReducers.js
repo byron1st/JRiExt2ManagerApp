@@ -36,8 +36,9 @@ export default (state = INITIAL_STATE, action) => {
         }
       )
     case CHANGE_EXEC_STATUS:
+      console.log(action.payload)
       let newExecList = _.cloneDeep(state.execList)
-      newExecList[action.payload.index].status = action.payload.mainStatus
+      newExecList[action.payload.index].status = action.payload.execStatus
       return Object.assign({}, state, { execList: newExecList })
     default:
       return state

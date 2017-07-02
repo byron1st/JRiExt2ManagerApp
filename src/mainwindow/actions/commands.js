@@ -12,7 +12,8 @@ export const instrument = (classpath, ettypeList) => {
   }
 }
 
-export const execute = (mainClassName, outputFilePath, errorFilePath) => {
+export const executeJRiExt2 = (exec) => {
+  const { mainClassName, outputFilePath, errorFilePath } = exec
   return {
     cmd: CMD.EXEC,
     args: [mainClassName, outputFilePath, errorFilePath]

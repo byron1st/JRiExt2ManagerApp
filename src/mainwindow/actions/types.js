@@ -19,3 +19,6 @@ export const EXEC_STATUS = {
   EXEC_ONGOING: 2,
   EXEC_DONE: 3
 }
+
+// Exec actions
+export const START_EXEC = 'start-exec'

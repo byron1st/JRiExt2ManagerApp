@@ -56,16 +56,30 @@ function createMainWindow () {
 
 function getResponseFromJRiExt2 (data) {
   const KEY_ERROR = 'error'
-  const KEY_DONE = 'done'
+  const KEY_DONE_INST = 'done.inst'
+  const KEY_DONE_EXEC = 'done.exec'
+  const KEY_TERM_EXEC = 'term.exec'
+  const KEY_DONE_QUIT = 'done.quit'
 
-  const message = JSON.parse(data)
+  const response = JSON.parse(data)
 
-  switch (message.key) {
+  switch (response.key) {
     case KEY_ERROR:
-      sendToRenderer('error-response', message.body)
+      const errorMessage = response.body
+      sendToRenderer('error-response', errorMessage)
       break
-    case KEY_DONE:
-      sendToRenderer('done-response', message.body)
+    case KEY_DONE_INST:
+      sendToRenderer('done-inst')
+      break
+    case KEY_DONE_EXEC:
+      const startedProcessKey = response.body
+      sendToRenderer('done-exec', startedProcessKey)
+      break
+    case KEY_TERM_EXEC:
+      const terminatedProcessKey = response.body
+      sendToRenderer('term-exec', terminatedProcessKey)
+      break
+    case KEY_DONE_QUIT:
       break
     default:
       break
