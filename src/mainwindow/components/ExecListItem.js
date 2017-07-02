@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { ipcRenderer } from 'electron'
 
-import { executeJRiExt2 } from '../actions/commands'
+import { executeJRiExt2, stopExecJRiExt2 } from '../actions/commands'
 import { Button, ButtonType } from './common'
 import { EXEC_STATUS } from '../actions/types'
 
@@ -12,10 +12,16 @@ class ExecListItem extends Component {
     this.renderButton = this.renderButton.bind(this)
     this.renderProcessKey = this.renderProcessKey.bind(this)
     this.startExec = this.startExec.bind(this)
+    this.stopExec = this.stopExec.bind(this)
   }
 
   startExec () {
     const command = executeJRiExt2(this.props.exec)
+    ipcRenderer.send('send-command', command)
+  }
+
+  stopExec () {
+    const command = stopExecJRiExt2(this.props.exec)
     ipcRenderer.send('send-command', command)
   }
 
@@ -28,7 +34,7 @@ class ExecListItem extends Component {
       case EXEC_STATUS.EXEC_READY:
         return <Button buttonType={ButtonType.PRIMARY} onClick={this.startExec}>Run</Button>
       case EXEC_STATUS.EXEC_ONGOING:
-        return <Button buttonType={ButtonType.NEGATIVE} onClick={() => console.log('stop')}>Stop</Button>
+        return <Button buttonType={ButtonType.NEGATIVE} onClick={this.stopExec}>Stop</Button>
     }
   }
 

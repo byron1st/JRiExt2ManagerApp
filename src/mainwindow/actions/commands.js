@@ -20,6 +20,13 @@ export const executeJRiExt2 = (exec) => {
   }
 }
 
+export const stopExecJRiExt2 = ({ processKey }) => {
+  return {
+    cmd: CMD.STOP,
+    args: [processKey]
+  }
+}
+
 export const quit = () => {
   return {
     cmd: CMD.QUIT
