@@ -34,8 +34,8 @@ class Window extends Component {
     })
 
     ipcRenderer.on('term-exec', (event, args) => {
-      // TODO: process is terminated
-      // console.log(terminatedProcessKey)
+      const uniqueName = args[0]
+      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_DONE })
     })
 
     ipcRenderer.on('error-response', (event, body) => {
