@@ -1,5 +1,4 @@
 export const LOAD_CONFIG = 'load-config'
-export const START_INST = 'start-inst'
 
 // Change the app status
 export const CHANGE_APP_STATUS = 'change-app-status'
@@ -22,3 +21,7 @@ export const EXEC_STATUS = {
 
 // Exec actions
 export const UPDATE_PROCESSKEY = 'update-processkey'
+
+// Message actions
+export const APPEND_MESSAGE = 'append-message'
+export const CLEAR_MESSAGE = 'clear-message'

@@ -1,36 +1,26 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { Section, Button, ButtonType } from './common'
+import { clearMessage } from '../actions'
 
-export default class MessageSection extends Component {
+class MessageSection extends Component {
+  renderMessageList (messageList) {
+    return messageList.map((message, index) => <h4 style={styles.text} key={'message' + index}>{message}</h4>)
+  }
+
   render () {
     return (
       <Section title='Messages'>
         <div style={styles.container}>
           <div style={styles.button}>
-            <Button buttonType={ButtonType.NEGATIVE}>clear</Button>
+            <Button
+              buttonType={ButtonType.NEGATIVE}
+              onClick={this.props.clearMessage}
+            >clear</Button>
           </div>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
-          <h4 style={styles.text}>message</h4>
+          {this.renderMessageList(this.props.messageList)}
         </div>
       </Section>
     )
@@ -58,4 +48,13 @@ const styles = {
 }
 
 MessageSection.propTypes = {
+  messageList: PropTypes.arrayOf(PropTypes.string).isRequired
 }
+
+const mapStateToProps = (state) => {
+  return {
+    messageList: state.messageList
+  }
+}
+
+export default connect(mapStateToProps, { clearMessage })(MessageSection)

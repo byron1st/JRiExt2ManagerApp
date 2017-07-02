@@ -1,11 +1,11 @@
 import { ipcRenderer } from 'electron'
 import {
   LOAD_CONFIG,
-  START_INST,
   APP_STATUS
 } from './types'
 import { instrument } from './commands'
 import { changeAppStatus } from './AppStatusActions'
+import { appendMessage } from './MessageActions'
 
 export const loadConfig = ({ config }) => {
   return (dispatch) => {
@@ -19,7 +19,7 @@ export const startInst = ({ classpath, ettypeList }) => {
   ipcRenderer.send('send-command', command)
 
   return (dispatch) => {
-    dispatch({ type: START_INST, payload: { classpath, ettypeList } })
     dispatch(changeAppStatus({ appStatus: APP_STATUS.INST_ONGOING }))
+    dispatch(appendMessage('Instrumentation has been started.'))
   }
 }

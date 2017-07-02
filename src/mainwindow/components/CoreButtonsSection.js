@@ -4,7 +4,7 @@ import { remote } from 'electron'
 import fs from 'fs'
 
 import { Section, Button, ButtonType } from './common'
-import { loadConfig, startInst } from '../actions'
+import { loadConfig, startInst, appendMessage } from '../actions'
 
 class CoreButtonsSection extends Component {
   checkConfigValidation (config) {
@@ -20,6 +20,7 @@ class CoreButtonsSection extends Component {
       }
 
       this.props.loadConfig({ config })
+      this.props.appendMessage('A config file has been loaded: ' + configFilePath)
     } catch (e) {
       remote.dialog.showErrorBox('Error!!', e.message)
     }
@@ -68,4 +69,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { loadConfig, startInst })(CoreButtonsSection)
+export default connect(mapStateToProps, { loadConfig, startInst, appendMessage })(CoreButtonsSection)

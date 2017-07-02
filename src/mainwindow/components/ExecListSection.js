@@ -39,7 +39,6 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     execList: state.config.execList,
     status: state.status

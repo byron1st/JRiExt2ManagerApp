@@ -14,7 +14,8 @@ import {
   changeAllExecReady,
   changeExecStatus,
   changeExecStatusFromUniqueName,
-  updateProcessKey
+  updateProcessKey,
+  appendMessage
 } from '../actions'
 import { APP_STATUS, EXEC_STATUS } from '../actions/types'
 
@@ -23,6 +24,8 @@ class Window extends Component {
     ipcRenderer.on('done-inst', () => {
       this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
       this.props.changeAllExecReady()
+      this.props.appendMessage('Instrumentation has been finished.')
+      this.props.appendMessage('You can now execute the target program.')
     })
 
     ipcRenderer.on('done-exec', (event, args) => {
@@ -31,15 +34,20 @@ class Window extends Component {
 
       this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_ONGOING })
       this.props.updateProcessKey({ uniqueName, processKey })
+      this.props.appendMessage(uniqueName + '(' + processKey + ') is executed now.')
     })
 
     ipcRenderer.on('term-exec', (event, args) => {
       const uniqueName = args[0]
+      const processKey = args[1]
+
       this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_READY })
+      this.props.appendMessage(uniqueName + '(' + processKey + ') is terminated now.')
     })
 
     ipcRenderer.on('error-response', (event, body) => {
       remote.dialog.showErrorBox('JRiExt2 throws an error!', body)
+      this.props.appendMessage('An error has been occured: ' + body)
 
       if (this.props.appStatus === APP_STATUS.INST_ONGOING) {
         this.props.changeAppStatus({ appStatus: APP_STATUS.CONFIG_LOADED })
@@ -72,10 +80,12 @@ const mapDispatchToProps = {
   changeAllExecReady,
   changeExecStatus,
   changeExecStatusFromUniqueName,
-  updateProcessKey
+  updateProcessKey,
+  appendMessage
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     appStatus: state.status
   }
