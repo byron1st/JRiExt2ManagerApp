@@ -64,8 +64,7 @@ function getResponseFromJRiExt2 (data) {
   const response = JSON.parse(data)
   switch (response.key) {
     case KEY_ERROR:
-      const errorMessage = response.body
-      sendToRenderer('error-response', errorMessage)
+      sendToRenderer('error-response', response.body[0])
       break
     case KEY_DONE_INST:
       sendToRenderer('done-inst')

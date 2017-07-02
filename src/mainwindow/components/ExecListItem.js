@@ -1,30 +1,34 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { ipcRenderer } from 'electron'
 
+import { executeJRiExt2 } from '../actions/commands'
 import { Button, ButtonType } from './common'
 import { EXEC_STATUS } from '../actions/types'
-import { startExec } from '../actions'
 
 class ExecListItem extends Component {
   constructor () {
     super()
     this.renderButton = this.renderButton.bind(this)
     this.renderProcessKey = this.renderProcessKey.bind(this)
+    this.startExec = this.startExec.bind(this)
+  }
+
+  startExec () {
+    const command = executeJRiExt2(this.props.exec)
+    ipcRenderer.send('send-command', command)
   }
 
   renderButton () {
-    const { exec, index } = this.props
+    const { exec } = this.props
 
     switch (exec.status) {
       case EXEC_STATUS.BEFORE_READY:
         return
       case EXEC_STATUS.EXEC_READY:
-        return <Button buttonType={ButtonType.PRIMARY} onClick={() => this.props.startExec({ exec, index })}>Run</Button>
+        return <Button buttonType={ButtonType.PRIMARY} onClick={this.startExec}>Run</Button>
       case EXEC_STATUS.EXEC_ONGOING:
         return <Button buttonType={ButtonType.NEGATIVE} onClick={() => console.log('stop')}>Stop</Button>
-      case EXEC_STATUS.EXEC_DONE:
-        return <Button buttonType={ButtonType.SECONDARY} onClick={() => console.log('done')}>Open a log file</Button>
     }
   }
 
@@ -84,8 +88,7 @@ ExecListItem.propTypes = {
     uniqueName: PropTypes.string,
     executable: PropTypes.string.isRequired
   }),
-  index: PropTypes.number.isRequired,
   isRunButtonVisible: PropTypes.bool.isRequired
 }
 
-export default connect(null, { startExec })(ExecListItem)
+export default ExecListItem

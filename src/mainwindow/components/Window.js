@@ -35,11 +35,15 @@ class Window extends Component {
 
     ipcRenderer.on('term-exec', (event, args) => {
       const uniqueName = args[0]
-      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_DONE })
+      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_READY })
     })
 
     ipcRenderer.on('error-response', (event, body) => {
       remote.dialog.showErrorBox('JRiExt2 throws an error!', body)
+
+      if (this.props.appStatus === APP_STATUS.INST_ONGOING) {
+        this.props.changeAppStatus({ appStatus: APP_STATUS.CONFIG_LOADED })
+      }
     })
   }
 
@@ -71,4 +75,10 @@ const mapDispatchToProps = {
   updateProcessKey
 }
 
-export default connect(null, mapDispatchToProps)(Window)
+const mapStateToProps = (state) => {
+  return {
+    appStatus: state.status
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Window)

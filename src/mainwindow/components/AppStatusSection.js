@@ -13,6 +13,22 @@ class AppStatusSection extends Component {
     )
   }
 
+  renderInstStatus (appStatus) {
+    let instStatus
+
+    if (appStatus === APP_STATUS.INST_ONGOING) {
+      instStatus = (
+        <span>
+          <i className='fa fa-cog fa-spin' /> INST ONGOING...
+        </span>
+      )
+    } else {
+      instStatus = 'INST DONE'
+    }
+
+    return instStatus
+  }
+
   render () {
     const jriext2Pid = ipcRenderer.sendSync('get-jriext2-pid')
 
@@ -28,7 +44,7 @@ class AppStatusSection extends Component {
           </div>
           &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
           <div style={this.getStatuslightStyle(APP_STATUS.INST_DONE, this.props.status)}>
-            INST. DONE
+            {this.renderInstStatus(this.props.status)}
           </div>
         </div>
       </Section>
