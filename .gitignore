@@ -57,6 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# Gulp produces.
 compiled/
 jriext_userdata/
 maps/
+
+# macOS file
+.DS_Store
