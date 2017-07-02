@@ -19,12 +19,13 @@ class Window extends Component {
       this.props.changeAllExecReady()
     })
 
-    ipcRenderer.on('done-exec', (event, startedProcessKey) => {
+    ipcRenderer.on('done-exec', (event, args) => {
       // TODO: process is started
-      console.log(startedProcessKey)
+      const uniqueName = args[0]
+      const processKey = args[1]
     })
 
-    ipcRenderer.on('term-exec', (event, terminatedProcessKey) => {
+    ipcRenderer.on('term-exec', (event, args) => {
       // TODO: process is terminated
       console.log(terminatedProcessKey)
     })

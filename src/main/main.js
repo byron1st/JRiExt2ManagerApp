@@ -62,7 +62,6 @@ function getResponseFromJRiExt2 (data) {
   const KEY_DONE_QUIT = 'done.quit'
 
   const response = JSON.parse(data)
-
   switch (response.key) {
     case KEY_ERROR:
       const errorMessage = response.body
@@ -72,12 +71,10 @@ function getResponseFromJRiExt2 (data) {
       sendToRenderer('done-inst')
       break
     case KEY_DONE_EXEC:
-      const startedProcessKey = response.body
-      sendToRenderer('done-exec', startedProcessKey)
+      sendToRenderer('done-exec', response.body)
       break
     case KEY_TERM_EXEC:
-      const terminatedProcessKey = response.body
-      sendToRenderer('term-exec', terminatedProcessKey)
+      sendToRenderer('term-exec', response.body)
       break
     case KEY_DONE_QUIT:
       break

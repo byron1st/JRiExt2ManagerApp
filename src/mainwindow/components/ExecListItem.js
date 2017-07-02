@@ -64,7 +64,7 @@ ExecListItem.propTypes = {
     uniqueName: PropTypes.string,
     executable: PropTypes.string.isRequired
   }),
-  onClick: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
   isRunButtonVisible: PropTypes.bool.isRequired
 }
 
