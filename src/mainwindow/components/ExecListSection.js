@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import { Section } from './common'
 import { APP_STATUS } from '../actions/types'
-import { startExec } from '../actions'
 import ExecListItem from './ExecListItem'
 
 class ExecListContainer extends Component {
@@ -14,7 +13,7 @@ class ExecListContainer extends Component {
     return execList.map((exec, index) => {
       return <ExecListItem
         exec={exec}
-        onClick={() => this.props.startExec({ exec, index })}
+        index={index}
         isRunButtonVisible={isRunButtonVisible}
         key={exec.uniqueName}
       />
@@ -55,4 +54,4 @@ ExecListContainer.propTypes = {
   status: PropTypes.oneOf([0, 1, 2, 3])
 }
 
-export default connect(mapStateToProps, { startExec })(ExecListContainer)
+export default connect(mapStateToProps)(ExecListContainer)

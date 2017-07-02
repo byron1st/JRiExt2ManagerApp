@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import { Button, ButtonType } from './common'
 import { EXEC_STATUS } from '../actions/types'
+import { startExec } from '../actions'
 
 class ExecListItem extends Component {
   constructor () {
@@ -11,17 +13,17 @@ class ExecListItem extends Component {
   }
 
   renderButton () {
-    const { exec, onClick } = this.props
+    const { exec, index } = this.props
 
     switch (exec.status) {
       case EXEC_STATUS.BEFORE_READY:
         return
       case EXEC_STATUS.EXEC_READY:
-        return <Button buttonType={ButtonType.PRIMARY} onClick={onClick}>Run</Button>
+        return <Button buttonType={ButtonType.PRIMARY} onClick={() => this.props.startExec({ exec, index })}>Run</Button>
       case EXEC_STATUS.EXEC_ONGOING:
-        return <Button buttonType={ButtonType.NEGATIVE} onClick={onClick}>Stop</Button>
+        return <Button buttonType={ButtonType.NEGATIVE} onClick={() => console.log('stop')}>Stop</Button>
       case EXEC_STATUS.EXEC_DONE:
-        return <Button buttonType={ButtonType.SECONDARY} onClick={onClick}>Open a log file</Button>
+        return <Button buttonType={ButtonType.SECONDARY} onClick={() => console.log('done')}>Open a log file</Button>
     }
   }
 
@@ -66,4 +68,4 @@ ExecListItem.propTypes = {
   isRunButtonVisible: PropTypes.bool.isRequired
 }
 
-export default ExecListItem
+export default connect(null, { startExec })(ExecListItem)
