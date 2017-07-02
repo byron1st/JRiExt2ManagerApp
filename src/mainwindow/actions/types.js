@@ -10,7 +10,7 @@ export const APP_STATUS = {
   INST_DONE: 3
 }
 
-// Change the status of a main
+// Change the status of a exec
 export const CHANGE_EXEC_STATUS = 'change-exec-status'
 export const CHANGE_ALL_EXEC_READY = 'change-all-exec-ready'
 export const EXEC_STATUS = {
@@ -21,4 +21,4 @@ export const EXEC_STATUS = {
 }
 
 // Exec actions
-export const START_EXEC = 'start-exec'
+export const UPDATE_PROCESSKEY = 'update-processkey'

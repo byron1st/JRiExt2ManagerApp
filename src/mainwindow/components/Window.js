@@ -9,8 +9,14 @@ import CoreButtonsSection from './CoreButtonsSection'
 import ClasspathSection from './ClasspathSection'
 import ExecListSection from './ExecListSection'
 import MessageSection from './MessageSection'
-import { changeAppStatus, changeAllExecReady } from '../actions'
-import { APP_STATUS } from '../actions/types'
+import {
+  changeAppStatus,
+  changeAllExecReady,
+  changeExecStatus,
+  changeExecStatusFromUniqueName,
+  updateProcessKey
+} from '../actions'
+import { APP_STATUS, EXEC_STATUS } from '../actions/types'
 
 class Window extends Component {
   componentWillMount () {
@@ -20,14 +26,16 @@ class Window extends Component {
     })
 
     ipcRenderer.on('done-exec', (event, args) => {
-      // TODO: process is started
       const uniqueName = args[0]
       const processKey = args[1]
+
+      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_ONGOING })
+      this.props.updateProcessKey({ uniqueName, processKey })
     })
 
     ipcRenderer.on('term-exec', (event, args) => {
       // TODO: process is terminated
-      console.log(terminatedProcessKey)
+      // console.log(terminatedProcessKey)
     })
 
     ipcRenderer.on('error-response', (event, body) => {
@@ -55,40 +63,12 @@ const styles = {
   }
 }
 
-export default connect(null, { changeAppStatus, changeAllExecReady })(Window)
+const mapDispatchToProps = {
+  changeAppStatus,
+  changeAllExecReady,
+  changeExecStatus,
+  changeExecStatusFromUniqueName,
+  updateProcessKey
+}
 
-// export default class Window extends Component {
-//   requestInst () {
-//     const targetClassPath = '/Users/byron1st/Developer/Workspace/IntelliJ/jriext2/src/test/resources/bin'
-//     const ettypeDefFilePath = '/Users/byron1st/Developer/Workspace/IntelliJ/jriext2/src/test/resources/monitoringUnits_banking.json'
-
-//     const command = instrument(targetClassPath, ettypeDefFilePath)
-//     ipcRenderer.send('send-command', command)
-//   }
-
-//   requestExecute () {
-//     const mainClassName = 'framework/PFSystemMain'
-
-//     const command = execute(mainClassName)
-//     ipcRenderer.send('send-command', command)
-//   }
-
-//   requestQuit () {
-//     ipcRenderer.send('send-command', quit())
-//   }
-
-//   render () {
-//     return (
-//       <div>
-//         <h1> Hello, World!!!! </h1>
-//         <button onClick={() => this.requestInst()}>inst</button>
-//         <button onClick={() => this.requestExecute()}>execute</button>
-//         <button onClick={() => this.requestStop()}>stop</button>
-//         <button onClick={() => this.requestQuit()}>quit</button>
-//       </div>
-//     )
-//   }
-// }
-// Window.propTypes = {
-//   store: PropTypes.object.isRequired
-// }
+export default connect(null, mapDispatchToProps)(Window)

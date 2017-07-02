@@ -10,6 +10,7 @@ class ExecListItem extends Component {
   constructor () {
     super()
     this.renderButton = this.renderButton.bind(this)
+    this.renderProcessKey = this.renderProcessKey.bind(this)
   }
 
   renderButton () {
@@ -27,12 +28,31 @@ class ExecListItem extends Component {
     }
   }
 
+  renderProcessKey () {
+    const { exec } = this.props
+    if (exec.processKey) {
+      if (exec.status === EXEC_STATUS.EXEC_ONGOING) {
+        return (
+          <span>
+            <i className='fa fa-cog fa-spin' /> {exec.processKey}
+          </span>
+        )
+      } else if (exec.status === EXEC_STATUS.EXEC_DONE) {
+        return (
+          <span>
+            <i className='fa fa-file' /> {exec.processKey}
+          </span>
+        )
+      }
+    }
+  }
+
   render () {
     const { exec } = this.props
 
     return (
       <div style={styles.container}>
-        <h4 style={styles.text}>({exec.uniqueName}) {exec.mainClassName}</h4>
+        <h4 style={styles.text}>({exec.uniqueName}) {exec.mainClassName} : {this.renderProcessKey()}</h4>
         {this.renderButton()}
       </div>
     )
