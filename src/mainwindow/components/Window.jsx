@@ -41,7 +41,7 @@ class Window extends Component {
       const uniqueName = args[0]
       const processKey = args[1]
 
-      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_READY })
+      this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_DONE })
       this.props.appendMessage(uniqueName + '(' + processKey + ') is terminated now.')
     })
 
