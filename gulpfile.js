@@ -3,7 +3,7 @@ const gulp = require('gulp')
 const babel = require('gulp-babel')
 const electronMocha = require('gulp-electron-mocha')
 const sourcemaps = require('gulp-sourcemaps')
-// const fs = require('fs')
+const fs = require('fs')
 
 const JS_FILE_LIST = ['src/**/*.js', 'src/**/*.jsx']
 const JS_TEST_FILE_LIST = ['test/**/*.js']
@@ -15,7 +15,7 @@ const COPY_LIST = {
 
 const COMPILED_DEST = 'compiled'
 const COMPILED_TEST_DEST = 'compiled-test'
-// const PACKAGED_DEST = 'app'
+const PACKAGED_DEST = 'app'
 
 const COMPILE_TASKS = ['copy:src', 'compile:js', 'compile:test']
 
@@ -51,28 +51,28 @@ gulp.task('test', COMPILE_TASKS, () => {
     .pipe(electronMocha.default())
 })
 
-// gulp.task('del:app', ['test'], () => {
-//   return del.sync([PACKAGED_DEST + '/**/*'])
-// })
+gulp.task('del:app', ['test'], () => {
+  return del.sync([PACKAGED_DEST + '/**/*'])
+})
 
-// gulp.task('copy', ['del:app'], () => {
-//   gulp.src(COPY_LIST.compiled)
-//     .pipe(gulp.dest(PACKAGED_DEST + '/compiled'))
-//   return gulp.src(COPY_LIST.public)
-//     .pipe(gulp.dest(PACKAGED_DEST + '/public'))
-// })
+gulp.task('copy', ['del:app'], () => {
+  gulp.src(COPY_LIST.compiled)
+    .pipe(gulp.dest(PACKAGED_DEST + '/compiled'))
+  return gulp.src(COPY_LIST.public)
+    .pipe(gulp.dest(PACKAGED_DEST + '/public'))
+})
 
-// gulp.task('package', ['copy'], () => {
-//   let devPkg = JSON.parse(fs.readFileSync('package.json'))
-//   let prodPkg = {
-//     name: devPkg.name,
-//     version: devPkg.version,
-//     description: devPkg.description,
-//     main: devPkg.main,
-//     author: devPkg.author,
-//     license: devPkg.license,
-//     dependencies: devPkg.dependencies
-//   }
-//   fs.writeFileSync(PACKAGED_DEST + '/package.json', JSON.stringify(prodPkg))
-//   fs.writeFileSync(PACKAGED_DEST + '/compiled/main/app.mode.json', JSON.stringify({ 'mode': 'production' }))
-// })
+gulp.task('package', ['copy'], () => {
+  let devPkg = JSON.parse(fs.readFileSync('package.json'))
+  let prodPkg = {
+    name: devPkg.name,
+    version: devPkg.version,
+    description: devPkg.description,
+    main: devPkg.main,
+    author: devPkg.author,
+    license: devPkg.license,
+    dependencies: devPkg.dependencies
+  }
+  fs.writeFileSync(PACKAGED_DEST + '/package.json', JSON.stringify(prodPkg))
+  fs.writeFileSync(PACKAGED_DEST + '/compiled/main/app.mode.json', JSON.stringify({ 'mode': 'production' }))
+})

@@ -7,6 +7,7 @@ import { exec } from 'child_process'
 import testMode from './app.mode'
 
 const JRIEXT2 = '/Users/byron1st/Developer/Workspace/Java/jriext2/build/install/jriext2/bin/jriext2'
+// const JRIEXT2 = path.join(__dirname, '/../../public/jriext2/bin/jriext2')
 
 let mainWindow = null
 let jriext2 = null
