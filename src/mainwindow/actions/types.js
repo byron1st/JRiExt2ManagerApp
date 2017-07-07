@@ -6,7 +6,9 @@ export const APP_STATUS = {
   READY: 0,
   CONFIG_LOADED: 1,
   INST_ONGOING: 2,
-  INST_DONE: 3
+  INST_DONE: 3,
+  EXTR_READY: 4,
+  EXTR_DONE: 5
 }
 
 // Change the status of a exec
