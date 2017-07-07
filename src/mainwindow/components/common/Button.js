@@ -19,14 +19,21 @@ class Button extends Component {
     this.setState({ isHovered: isHovered })
   }
 
-  getButtonStyle (type) {
-    let color = this.getButtonColor(type)
-    return Object.assign({},
-      styles.container,
-      this.state.isHovered
-        ? { borderColor: color, backgroundColor: 'white', color: color }
-        : { borderColor: color, backgroundColor: color, color: 'white' }
-    )
+  getButtonStyle (type, disabled) {
+    if (disabled) {
+      return Object.assign({},
+        styles.container,
+        { borderColor: '#4f4f4f', backgroundColor: '#a4a4a4', color: 'white' }
+      )
+    } else {
+      let color = this.getButtonColor(type)
+      return Object.assign({},
+        styles.container,
+        this.state.isHovered
+          ? { borderColor: color, backgroundColor: 'white', color: color }
+          : { borderColor: color, backgroundColor: color, color: 'white' }
+      )
+    }
   }
 
   getButtonColor (type) {
@@ -46,16 +53,18 @@ class Button extends Component {
     const {
       buttonType,
       onClick,
-      children
+      children,
+      disabled
     } = this.props
 
     return (
       <button
         type='button'
-        style={this.getButtonStyle(buttonType)}
+        style={this.getButtonStyle(buttonType, disabled)}
         onClick={onClick}
         onMouseEnter={() => this.toggleHovered(true)}
         onMouseLeave={() => this.toggleHovered(false)}
+        disabled={disabled}
       >
         {children}
       </button>

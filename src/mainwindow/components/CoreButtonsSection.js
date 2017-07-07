@@ -5,6 +5,7 @@ import fs from 'fs'
 
 import { Section, Button, ButtonType } from './common'
 import { loadConfig, startInst, appendMessage } from '../actions'
+import { APP_STATUS } from '../actions/types'
 
 class CoreButtonsSection extends Component {
   checkConfigValidation (config) {
@@ -48,7 +49,11 @@ class CoreButtonsSection extends Component {
       <Section title='Menu'>
         <div style={styles.container}>
           <Button buttonType={ButtonType.PRIMARY} onClick={this.loadConfig.bind(this)}>Get a config</Button>
-          <Button buttonType={ButtonType.PRIMARY} onClick={this.startInst.bind(this)}>Instrumentation</Button>
+          <Button
+            buttonType={ButtonType.PRIMARY}
+            onClick={this.startInst.bind(this)}
+            disabled={this.props.status < APP_STATUS.CONFIG_LOADED}
+          >Instrumentation</Button>
         </div>
       </Section>
     )
@@ -65,7 +70,8 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     classpath: state.config.classpath,
-    ettypeList: state.config.ettypeList
+    ettypeList: state.config.ettypeList,
+    status: state.status
   }
 }
 
