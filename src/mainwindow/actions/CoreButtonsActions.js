@@ -1,7 +1,8 @@
 import { ipcRenderer } from 'electron'
 import {
   LOAD_CONFIG,
-  APP_STATUS
+  APP_STATUS,
+  ADD_CACHEROOT
 } from './types'
 import { instrument } from './commands'
 import { changeAppStatus } from './AppStatusActions'
@@ -21,5 +22,12 @@ export const startInst = ({ classpath, ettypeList }) => {
   return (dispatch) => {
     dispatch(changeAppStatus({ appStatus: APP_STATUS.INST_ONGOING }))
     dispatch(appendMessage('Instrumentation has been started.'))
+  }
+}
+
+export const addCacheRoot = (cacheRoot) => {
+  return {
+    type: ADD_CACHEROOT,
+    payload: cacheRoot
   }
 }

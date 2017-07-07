@@ -5,13 +5,15 @@ import {
   LOAD_CONFIG,
   CHANGE_EXEC_STATUS,
   CHANGE_ALL_EXEC_READY,
-  UPDATE_PROCESSKEY
+  UPDATE_PROCESSKEY,
+  ADD_CACHEROOT
 } from '../actions/types'
 
 const INITIAL_STATE = {
   classpath: '',
   execList: [],
-  ettypeList: []
+  ettypeList: [],
+  cacheRoot: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,6 +46,8 @@ export default (state = INITIAL_STATE, action) => {
       let newExecList2 = _.cloneDeep(state.execList)
       newExecList2[action.payload.index].processKey = action.payload.processKey
       return Object.assign({}, state, { execList: newExecList2 })
+    case ADD_CACHEROOT:
+      return Object.assign({}, state, { cacheRoot: action.payload })
     default:
       return state
   }

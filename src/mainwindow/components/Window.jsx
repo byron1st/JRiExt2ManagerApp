@@ -15,17 +15,19 @@ import {
   changeExecStatus,
   changeExecStatusFromUniqueName,
   updateProcessKey,
-  appendMessage
+  appendMessage,
+  addCacheRoot
 } from '../actions'
 import { APP_STATUS, EXEC_STATUS } from '../actions/types'
 
 class Window extends Component {
   componentWillMount () {
-    ipcRenderer.on('done-inst', () => {
+    ipcRenderer.on('done-inst', (event, cacheRoot) => {
       this.props.changeAppStatus({ appStatus: APP_STATUS.INST_DONE })
       this.props.changeAllExecReady()
       this.props.appendMessage('Instrumentation has been finished.')
-      this.props.appendMessage('You can now execute the target program.')
+      this.props.appendMessage('You can now execute the target program from ' + cacheRoot + '.')
+      this.props.addCacheRoot(cacheRoot)
     })
 
     ipcRenderer.on('done-exec', (event, args) => {
@@ -81,7 +83,8 @@ const mapDispatchToProps = {
   changeExecStatus,
   changeExecStatusFromUniqueName,
   updateProcessKey,
-  appendMessage
+  appendMessage,
+  addCacheRoot
 }
 
 const mapStateToProps = (state) => {

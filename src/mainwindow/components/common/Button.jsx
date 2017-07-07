@@ -73,7 +73,7 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   buttonType: PropTypes.oneOf([ButtonType.PRIMARY, ButtonType.NEGATIVE, ButtonType.SECONDARY])
 }

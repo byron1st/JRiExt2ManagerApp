@@ -1,28 +1,59 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { Button, ButtonType } from './Button'
+
 class Section extends Component {
-  renderHeader (title) {
+  renderHeader (title, buttonOnClick, buttonText) {
     if (title) {
-      return (
-        <div>
-          <h3 style={styles.title}>{title}</h3>
-          <hr style={styles.hr} />
-        </div>
-      )
+      if (buttonOnClick && buttonText) {
+        return this.renderButtonHeader(title, buttonOnClick, buttonText)
+      } else {
+        return this.renderNormalHeader(title)
+      }
     }
+  }
+
+  renderNormalHeader (title) {
+    return (
+      <div>
+        <div style={styles.textContainer}>
+          <h3 style={styles.title}>{title}</h3>
+        </div>
+        <hr style={styles.hr} />
+      </div>
+    )
+  }
+
+  renderButtonHeader (title, buttonOnClick, buttonText) {
+    return (
+      <div>
+        <div style={styles.textContainer}>
+          <h3 style={styles.title}>{title}</h3>
+          <Button
+            buttonType={ButtonType.SECONDARY}
+            onClick={buttonOnClick}
+          >
+            {buttonText}
+          </Button>
+        </div>
+        <hr style={styles.hr} />
+      </div>
+    )
   }
 
   render () {
     const {
       title,
+      buttonOnClick,
+      buttonText,
       customStyle,
       children
     } = this.props
 
     return (
       <div style={Object.assign({}, styles.container, customStyle)}>
-        {this.renderHeader(title)}
+        {this.renderHeader(title, buttonOnClick, buttonText)}
         {children}
       </div>
     )
@@ -46,8 +77,14 @@ const styles = {
     padding: '5px'
   },
   title: {
-    margin: '0px 0px 5px 0px',
+    margin: '0px 0px 0px 0px',
     fontFamily: 'sans-serif'
+  },
+  textContainer: {
+    margin: '0px 0px 5px 0px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   hr: {
     margin: '0px 0px 5px 0px'

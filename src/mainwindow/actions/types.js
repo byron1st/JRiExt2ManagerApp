@@ -1,4 +1,5 @@
 export const LOAD_CONFIG = 'load-config'
+export const ADD_CACHEROOT = 'add-cacheroot'
 
 // Change the app status
 export const CHANGE_APP_STATUS = 'change-app-status'

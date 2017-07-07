@@ -68,7 +68,7 @@ function getResponseFromJRiExt2 (data) {
       sendToRenderer('error-response', response.body[0])
       break
     case KEY_DONE_INST:
-      sendToRenderer('done-inst')
+      sendToRenderer('done-inst', response.body[0])
       break
     case KEY_DONE_EXEC:
       sendToRenderer('done-exec', response.body)

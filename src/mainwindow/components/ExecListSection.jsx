@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { shell } from 'electron'
 
 import { Section } from './common'
 import { APP_STATUS } from '../actions/types'
@@ -22,7 +23,13 @@ class ExecListContainer extends Component {
 
   render () {
     return (
-      <Section title='Executables'>
+      <Section
+        title='Executables'
+        buttonOnClick={this.props.cacheRoot ? () => {
+          shell.showItemInFolder(this.props.cacheRoot)
+        } : undefined}
+        buttonText={<span><i className='fa fa-folder-open' aria-hidden='true' /> Open the cache folder</span>}
+      >
         <div style={styles.container}>
           {this.renderExecList(this.props.execList)}
         </div>
@@ -41,6 +48,7 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     execList: state.config.execList,
+    cacheRoot: state.config.cacheRoot,
     status: state.status
   }
 }
@@ -50,7 +58,8 @@ ExecListContainer.propTypes = {
     shortcut: PropTypes.string,
     mainClassName: PropTypes.string.isRequired
   })),
-  status: PropTypes.oneOf([0, 1, 2, 3, 4, 5])
+  status: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
+  cacheRoot: PropTypes.string
 }
 
 export default connect(mapStateToProps)(ExecListContainer)
