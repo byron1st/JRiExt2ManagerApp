@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, shell } from 'electron'
+import path from 'path'
 
 import { executeJRiExt2, stopExecJRiExt2 } from '../actions/commands'
 import { Button, ButtonType } from './common'
@@ -35,6 +36,8 @@ class ExecListItem extends Component {
         return <Button buttonType={ButtonType.PRIMARY} onClick={this.startExec}>Run</Button>
       case EXEC_STATUS.EXEC_ONGOING:
         return <Button buttonType={ButtonType.NEGATIVE} onClick={this.stopExec}>Stop</Button>
+      case EXEC_STATUS.EXEC_DONE:
+        return <Button buttonType={ButtonType.SECONDARY} onClick={this.startExec}>Re-run</Button>
     }
   }
 
@@ -48,9 +51,12 @@ class ExecListItem extends Component {
           </span>
         )
       } else if (exec.status === EXEC_STATUS.EXEC_DONE) {
+        const outputFilePath = path.join(exec.outputPath, exec.processKey + '.txt')
         return (
           <span>
-            <i className='fa fa-file' /> {exec.processKey}
+            <a href='#' style={{ color: 'black' }}>
+              <i className='fa fa-file' onClick={() => shell.showItemInFolder(outputFilePath)} />
+            </a> {exec.processKey}
           </span>
         )
       }
