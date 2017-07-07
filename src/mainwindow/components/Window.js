@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { ipcRenderer, remote } from 'electron'
 
 import AppStatusSection from './AppStatusSection'
-import CoreButtonsSection from './CoreButtonsSection'
+import MenuSection from './MenuSection'
 import ClasspathSection from './ClasspathSection'
 import ExecListSection from './ExecListSection'
 import MessageSection from './MessageSection'
@@ -59,7 +59,7 @@ class Window extends Component {
     return (
       <div style={styles.container}>
         <AppStatusSection />
-        <CoreButtonsSection />
+        <MenuSection />
         <ClasspathSection />
         <ExecListSection />
         <MessageSection />

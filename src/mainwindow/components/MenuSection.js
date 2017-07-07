@@ -7,7 +7,7 @@ import { Section, Button, ButtonType } from './common'
 import { loadConfig, startInst, appendMessage } from '../actions'
 import { APP_STATUS } from '../actions/types'
 
-class CoreButtonsSection extends Component {
+class MenuSection extends Component {
   checkConfigValidation (config) {
     return config.classpath && config.execList && config.ettypeList &&
       Array.isArray(config.execList) && Array.isArray(config.ettypeList) && typeof config.classpath === 'string'
@@ -46,7 +46,7 @@ class CoreButtonsSection extends Component {
 
   render () {
     return (
-      <Section title='Menu'>
+      <Section>
         <div style={styles.container}>
           <Button buttonType={ButtonType.PRIMARY} onClick={this.loadConfig.bind(this)}>Get a config</Button>
           <Button
@@ -75,4 +75,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { loadConfig, startInst, appendMessage })(CoreButtonsSection)
+export default connect(mapStateToProps, { loadConfig, startInst, appendMessage })(MenuSection)
