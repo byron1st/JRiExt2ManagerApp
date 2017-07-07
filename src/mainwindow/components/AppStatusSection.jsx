@@ -19,11 +19,11 @@ class AppStatusSection extends Component {
     if (appStatus === APP_STATUS.INST_ONGOING) {
       instStatus = (
         <span>
-          <i className='fa fa-cog fa-spin' /> INST ONGOING...
+          <i className='fa fa-cog fa-spin' /> Instrumentation Ongoing...
         </span>
       )
     } else {
-      instStatus = 'INST DONE'
+      instStatus = 'Instrumentation Done'
     }
 
     return instStatus
@@ -36,15 +36,23 @@ class AppStatusSection extends Component {
       <Section>
         <div style={styles.container}>
           <div style={this.getStatuslightStyle(APP_STATUS.READY, this.props.status)}>
-            READY JRiExt2 (pid: {jriext2Pid})
+            JRiExt2 Ready (pid: {jriext2Pid})
           </div>
           &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
           <div style={this.getStatuslightStyle(APP_STATUS.CONFIG_LOADED, this.props.status)}>
-            CONFIG LOADED
+            Config Loaded
           </div>
           &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
           <div style={this.getStatuslightStyle(APP_STATUS.INST_DONE, this.props.status)}>
             {this.renderInstStatus(this.props.status)}
+          </div>
+          &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
+          <div style={this.getStatuslightStyle(APP_STATUS.EXTR_READY, this.props.status)}>
+            Extraction Ready
+          </div>
+          &nbsp;<i className='fa fa-angle-double-right' aria-hidden='true' />&nbsp;
+          <div style={this.getStatuslightStyle(APP_STATUS.EXTR_DONE, this.props.status)}>
+            Extraction Done
           </div>
         </div>
       </Section>
