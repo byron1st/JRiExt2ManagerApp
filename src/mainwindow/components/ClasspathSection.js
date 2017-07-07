@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { shell } from 'electron'
 
 import { Section, Button, ButtonType } from './common'
 
@@ -10,6 +11,7 @@ class ClasspathSection extends Component {
       return (
         <Button
           buttonType={ButtonType.SECONDARY}
+          onClick={() => shell.showItemInFolder(classpath)}
         >
           Open
         </Button>
