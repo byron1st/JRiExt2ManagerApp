@@ -1,4 +1,5 @@
 import { ipcRenderer } from 'electron'
+
 import {
   LOAD_CONFIG,
   APP_STATUS,

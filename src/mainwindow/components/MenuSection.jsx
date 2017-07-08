@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { remote } from 'electron'
+import { remote, ipcRenderer } from 'electron'
 import fs from 'fs'
+import path from 'path'
 
 import { Section, Button, ButtonType } from './common'
 import { loadConfig, startInst, appendMessage } from '../actions'
@@ -23,7 +24,7 @@ class MenuSection extends Component {
       this.props.loadConfig({ config })
       this.props.appendMessage('A config file has been loaded: ' + configFilePath)
     } catch (e) {
-      remote.dialog.showErrorBox('Error!!', e.message)
+      remote.dialog.showErrorBox('Handle config file path error', e.message)
     }
   }
 
@@ -44,6 +45,12 @@ class MenuSection extends Component {
     })
   }
 
+  extractModel () {
+    const { outputFileList, mappingConditionScript } = this.props
+
+    ipcRenderer.send('extract-model', outputFileList, mappingConditionScript)
+  }
+
   render () {
     return (
       <Section>
@@ -53,7 +60,16 @@ class MenuSection extends Component {
             buttonType={ButtonType.PRIMARY}
             onClick={this.startInst.bind(this)}
             disabled={this.props.status < APP_STATUS.CONFIG_LOADED}
-          >Instrumentation</Button>
+          >
+            Instrumentation
+          </Button>
+          <Button
+            buttonType={ButtonType.PRIMARY}
+            onClick={this.extractModel.bind(this)}
+            disabled={this.props.status < APP_STATUS.EXTR_READY}
+          >
+            Extract a model
+          </Button>
         </div>
       </Section>
     )
@@ -68,10 +84,17 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
+  const outputFileList = state.config.execList.map(exec => {
+    if (exec.outputPath && exec.outputFile) {
+      return path.join(exec.outputPath, exec.outputFile)
+    }
+  })
   return {
     classpath: state.config.classpath,
     ettypeList: state.config.ettypeList,
-    status: state.status
+    status: state.status,
+    outputFileList: outputFileList,
+    mappingConditionScript: state.config.mappingConditionScript
   }
 }
 

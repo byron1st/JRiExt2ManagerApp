@@ -22,6 +22,10 @@ ipcMain.on('get-jriext2-pid', (event) => {
   event.returnValue = jriext2.pid
 })
 
+ipcMain.on('extract-model', (event, outputFileList, mappingConditionScript) => {
+  console.log(outputFileList, mappingConditionScript)
+})
+
 function initialize () {
   executeJRiExt2()
   createMainWindow()

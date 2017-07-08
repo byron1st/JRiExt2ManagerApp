@@ -1,3 +1,4 @@
+// Menu actions
 export const LOAD_CONFIG = 'load-config'
 export const ADD_CACHEROOT = 'add-cacheroot'
 
