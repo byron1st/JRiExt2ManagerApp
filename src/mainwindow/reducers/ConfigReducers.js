@@ -1,5 +1,4 @@
-import _ from 'lodash'
-
+import ExecReducers from './ExecReducers'
 import {
   EXEC_STATUS,
   LOAD_CONFIG,
@@ -28,27 +27,18 @@ export default (state = INITIAL_STATE, action) => {
           execList: execList.map(main => {
             return Object.assign({}, main, { status: EXEC_STATUS.BEFORE_READY })
           }),
-          ettypeList: ettypeList
+          ettypeList: ettypeList,
+          mappingConditionScript: mappingConditionScript
         }
       )
-    case CHANGE_ALL_EXEC_READY:
-      return Object.assign({}, state,
-        {
-          execList: state.execList.map(main => {
-            return Object.assign({}, main, { status: EXEC_STATUS.EXEC_READY })
-          })
-        }
-      )
-    case CHANGE_EXEC_STATUS:
-      let newExecList1 = _.cloneDeep(state.execList)
-      newExecList1[action.payload.index].status = action.payload.execStatus
-      return Object.assign({}, state, { execList: newExecList1 })
-    case UPDATE_PROCESSKEY:
-      let newExecList2 = _.cloneDeep(state.execList)
-      newExecList2[action.payload.index].processKey = action.payload.processKey
-      return Object.assign({}, state, { execList: newExecList2 })
     case ADD_CACHEROOT:
       return Object.assign({}, state, { cacheRoot: action.payload })
+    case CHANGE_ALL_EXEC_READY:
+    case CHANGE_EXEC_STATUS:
+    case UPDATE_PROCESSKEY:
+      return Object.assign({}, state, {
+        execList: ExecReducers(state.execList, action)
+      })
     default:
       return state
   }
