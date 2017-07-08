@@ -3,7 +3,8 @@ import {
   EXEC_STATUS,
   CHANGE_ALL_EXEC_READY,
   CHANGE_EXEC_STATUS,
-  UPDATE_PROCESSKEY
+  UPDATE_PROCESSKEY,
+  UPDATE_OUTPUTFILE
 } from '../actions/types'
 
 const INITIAL_STATE = []
@@ -22,6 +23,10 @@ export default (state = INITIAL_STATE, action) => {
       let newExecList2 = _.cloneDeep(state)
       newExecList2[action.payload.index].processKey = action.payload.processKey
       return newExecList2
+    case UPDATE_OUTPUTFILE:
+      let newExecList3 = _.cloneDeep(state)
+      newExecList3[action.payload.index].outputFile = action.payload.outputFile
+      return newExecList3
     default:
       return state
   }

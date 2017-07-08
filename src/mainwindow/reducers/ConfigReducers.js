@@ -5,6 +5,7 @@ import {
   CHANGE_EXEC_STATUS,
   CHANGE_ALL_EXEC_READY,
   UPDATE_PROCESSKEY,
+  UPDATE_OUTPUTFILE,
   ADD_CACHEROOT
 } from '../actions/types'
 
@@ -36,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_ALL_EXEC_READY:
     case CHANGE_EXEC_STATUS:
     case UPDATE_PROCESSKEY:
+    case UPDATE_OUTPUTFILE:
       return Object.assign({}, state, {
         execList: ExecReducers(state.execList, action)
       })

@@ -15,6 +15,7 @@ import {
   changeExecStatus,
   changeExecStatusFromUniqueName,
   updateProcessKey,
+  updateOutputFile,
   appendMessage,
   addCacheRoot
 } from '../actions'
@@ -41,10 +42,11 @@ class Window extends Component {
 
     ipcRenderer.on('term-exec', (event, args) => {
       const uniqueName = args[0]
-      const processKey = args[1]
+      const outputFile = args[1]
 
       this.props.changeExecStatusFromUniqueName({ uniqueName, execStatus: EXEC_STATUS.EXEC_DONE })
-      this.props.appendMessage(uniqueName + '(' + processKey + ') is terminated now.')
+      this.props.updateOutputFile({ uniqueName, outputFile })
+      this.props.appendMessage(uniqueName + ' is terminated now. Logs are recorded at ' + outputFile + '.')
     })
 
     ipcRenderer.on('error-response', (event, body) => {
@@ -83,6 +85,7 @@ const mapDispatchToProps = {
   changeExecStatus,
   changeExecStatusFromUniqueName,
   updateProcessKey,
+  updateOutputFile,
   appendMessage,
   addCacheRoot
 }

@@ -24,6 +24,7 @@ export const EXEC_STATUS = {
 
 // Exec actions
 export const UPDATE_PROCESSKEY = 'update-processkey'
+export const UPDATE_OUTPUTFILE = 'update-outputfile'
 
 // Message actions
 export const APPEND_MESSAGE = 'append-message'
