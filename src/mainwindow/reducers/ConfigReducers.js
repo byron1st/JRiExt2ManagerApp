@@ -11,6 +11,7 @@ import {
 
 const INITIAL_STATE = {
   classpath: '',
+  mappingConditionScript: '',
   execList: [],
   ettypeList: [],
   cacheRoot: ''
@@ -19,7 +20,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOAD_CONFIG:
-      const { classpath, execList, ettypeList } = action.payload
+      const { classpath, execList, ettypeList, mappingConditionScript } = action.payload
 
       return Object.assign({}, state,
         {
