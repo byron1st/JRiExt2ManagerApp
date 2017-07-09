@@ -64,3 +64,6 @@ maps/
 
 # macOS file
 .DS_Store
+
+# JRiExt2ManagerApp produces at Runtime
+db
