@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { remote, ipcRenderer } from 'electron'
 import fs from 'fs'
-import path from 'path'
 
 import { Section, Button, ButtonType } from './common'
 import { loadConfig, startInst, appendMessage } from '../actions'
