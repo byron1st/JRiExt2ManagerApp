@@ -27,9 +27,14 @@ class Container extends Component {
 
     let edgeDefList = []
     elementSet.connectorList.forEach(connector => {
+      let options = {}
+      if (connector.AEKind === 'connector') {
+        options.arrows = { to: true }
+      }
+
       connector.elementList.forEach(element => {
         const { from, to } = element
-        edgeDefList.push({ from, to, arrows: { to: true } })
+        edgeDefList.push(Object.assign({}, { from, to }, options))
       })
     })
 
