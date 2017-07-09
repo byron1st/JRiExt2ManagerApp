@@ -1,4 +1,4 @@
-export * from './CoreButtonsActions'
+export * from './MenuActions'
 export * from './AppStatusActions'
 export * from './ExecStatusActions'
 export * from './ExecActions'
