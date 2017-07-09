@@ -46,9 +46,9 @@ class MenuSection extends Component {
   }
 
   extractModel () {
-    const { outputFileList, mappingConditionScript } = this.props
+    const { ettypeList, execList, mappingConditionScript } = this.props
 
-    ipcRenderer.send('extract-model', outputFileList, mappingConditionScript)
+    ipcRenderer.send('extract-model', ettypeList, execList, mappingConditionScript)
   }
 
   render () {
@@ -84,17 +84,12 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  const outputFileList = state.config.execList.map(exec => {
-    if (exec.outputPath && exec.outputFile) {
-      return path.join(exec.outputPath, exec.outputFile)
-    }
-  })
   return {
     classpath: state.config.classpath,
     ettypeList: state.config.ettypeList,
-    status: state.status,
-    outputFileList: outputFileList,
-    mappingConditionScript: state.config.mappingConditionScript
+    execList: state.config.execList,
+    mappingConditionScript: state.config.mappingConditionScript,
+    status: state.status
   }
 }
 

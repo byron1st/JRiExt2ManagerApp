@@ -5,6 +5,8 @@ import path from 'path'
 import { exec } from 'child_process'
 
 import testMode from './app.mode'
+import { buildExecutionTraceDB } from './db'
+import extract from './extractor'
 
 const JRIEXT2 = '/Users/byron1st/Developer/Workspace/Java/jriext2/build/install/jriext2/bin/jriext2'
 // const JRIEXT2 = path.join(__dirname, '/../../public/jriext2/bin/jriext2')
@@ -22,8 +24,14 @@ ipcMain.on('get-jriext2-pid', (event) => {
   event.returnValue = jriext2.pid
 })
 
-ipcMain.on('extract-model', (event, outputFileList, mappingConditionScript) => {
-  console.log(outputFileList, mappingConditionScript)
+ipcMain.on('extract-model', (event, ettypeList, execList, mappingConditionScript) => {
+  const extractor = require(mappingConditionScript)
+
+  buildExecutionTraceDB(ettypeList, execList).then(db => {
+    extract(extractor, db).then(result => {
+      console.log(result)
+    })
+  })
 })
 
 function initialize () {
@@ -35,6 +43,7 @@ function executeJRiExt2 () {
   jriext2 = exec(JRIEXT2, (error) => console.log(error))
   jriext2.stdout.on('data', getResponseFromJRiExt2)
   jriext2.on('error', error => sendToRenderer('error-response', error.message))
+  // TODO: console.log를 다른 error 방법으로 변경.
   jriext2.on('close', () => console.log('closed'))
 }
 
