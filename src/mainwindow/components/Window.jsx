@@ -62,6 +62,9 @@ class Window extends Component {
       remote.dialog.showMessageBox({
         message: 'A model has been extracted to ' + filename + '.'
       })
+
+      this.props.changeAppStatus({ appStatus: APP_STATUS.EXTR_DONE })
+      this.props.appendMessage('A model has been extracted to ' + filename + '.')
     })
   }
 
