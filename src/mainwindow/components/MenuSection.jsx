@@ -45,9 +45,15 @@ class MenuSection extends Component {
   }
 
   extractModel () {
-    const { ettypeList, execList, mappingConditionScript } = this.props
+    remote.dialog.showSaveDialog({
+      title: 'Save a DOT graph file'
+    }, (filename) => {
+      if (filename) {
+        const { ettypeList, execList, mappingConditionScript } = this.props
 
-    ipcRenderer.send('extract-model', ettypeList, execList, mappingConditionScript)
+        ipcRenderer.send('extract-model', ettypeList, execList, mappingConditionScript, filename + '.dot')
+      }
+    })
   }
 
   render () {
@@ -67,7 +73,7 @@ class MenuSection extends Component {
             onClick={this.extractModel.bind(this)}
             disabled={this.props.status < APP_STATUS.EXTR_READY}
           >
-            Extract a model
+            Extract a model (DOT graph)
           </Button>
         </div>
       </Section>

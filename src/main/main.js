@@ -3,10 +3,12 @@
 import {app, BrowserWindow, ipcMain} from 'electron'
 import path from 'path'
 import { exec } from 'child_process'
+import fs from 'fs'
 
 import testMode from './app.mode'
 import { buildExecutionTraceDB } from './db'
 import extract from './extractor'
+import buildDotString from './dotBuilder'
 
 const JRIEXT2 = '/Users/byron1st/Developer/Workspace/Java/jriext2/build/install/jriext2/bin/jriext2'
 // const JRIEXT2 = path.join(__dirname, '/../../public/jriext2/bin/jriext2')
@@ -24,12 +26,14 @@ ipcMain.on('get-jriext2-pid', (event) => {
   event.returnValue = jriext2.pid
 })
 
-ipcMain.on('extract-model', (event, ettypeList, execList, mappingConditionScript) => {
+ipcMain.on('extract-model', (event, ettypeList, execList, mappingConditionScript, filename) => {
   const extractor = require(mappingConditionScript)
 
   buildExecutionTraceDB(ettypeList, execList).then(db => {
     extract(extractor, db).then(elementSet => {
-      createModelWindow(elementSet)
+      const dotString = buildDotString(elementSet)
+      fs.writeFileSync(filename, dotString)
+      sendToRenderer('extract-model-done', filename)
     })
   })
 })
@@ -65,26 +69,6 @@ function createMainWindow () {
     // URL: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
     BrowserWindow.addDevToolsExtension('/Users/byron1st/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.4.0_0')
     mainWindow.webContents.openDevTools()
-  }
-}
-
-function createModelWindow (elementSet) {
-  let modelWindow = new BrowserWindow({
-    width: 800,
-    height: 800,
-    title: 'Model Window'
-  })
-  modelWindow.loadURL(path.join('file://', __dirname, '/../modelwindow/index.html'))
-  modelWindow.elementSet = elementSet
-  modelWindow.on('closed', () => {
-    modelWindow = null
-  })
-
-  if (testMode) {
-    // A path to React Developer Tools(Chrome plugin)
-    // URL: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
-    BrowserWindow.addDevToolsExtension('/Users/byron1st/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.4.0_0')
-    modelWindow.webContents.openDevTools()
   }
 }
 

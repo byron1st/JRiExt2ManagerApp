@@ -57,6 +57,12 @@ class Window extends Component {
         this.props.changeAppStatus({ appStatus: APP_STATUS.CONFIG_LOADED })
       }
     })
+
+    ipcRenderer.on('extract-model-done', (event, filename) => {
+      remote.dialog.showMessageBox({
+        message: 'A model has been extracted to ' + filename + '.'
+      })
+    })
   }
 
   render () {
