@@ -1,30 +1,26 @@
-const getRandomColor = () => {
-  var letters = '0123456789ABCDEF'
-  var color = '#'
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)]
-  }
-  return color
-}
-
 export default (elementSet) => {
   let dotString = 'strict digraph {'
 
   elementSet.componentList.forEach(component => {
-    const color = getRandomColor()
+    const AEType = component.AEType
     component.elementList.forEach(element => {
       const { id, name } = element
-      dotString += id + ' [style=filled fillcolor="' + color + '" label="' + name + '"]\n'
+      const label = '«' + AEType + '»\n' + name
+      dotString += id + ' [shape=box label="' + label + '"]\n'
     })
   })
 
   elementSet.connectorList.forEach(connector => {
+    const AEType = connector.AEType
     connector.elementList.forEach(element => {
       const { from, to } = element
       dotString += from + ' -> ' + to
 
       if (connector.AEKind === 'composition') {
         dotString += ' [arrowtail=diamond dir="back"]'
+      } else {
+        const label = '«' + AEType + '»'
+        dotString += ' [label="' + label + '"]'
       }
 
       dotString += '\n'
