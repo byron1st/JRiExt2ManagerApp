@@ -18,16 +18,12 @@ module.exports = (executionTraceDB, componentList) => {
               let sinkThread = ''
               if (readTraceList) {
                 sinkThread = readTraceList[0]['ett-read-currentThread']
-                console.log(sinkThread)
               }
 
               connectorList.push({
                 from: currentThread,
                 to: sinkThread
               })
-
-              console.log(sinkThread)
-              console.log(connectorList)
 
               if ((++count) === traceList.length) {
                 console.log(connectorList)
