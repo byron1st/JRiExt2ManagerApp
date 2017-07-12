@@ -1,9 +1,9 @@
 // component
-const parseProcess = require('./java-common/process')
-const parseThread = require('./java-common/thread')
+const parseProcess = require('./process')
+const parseThread = require('./thread')
 
 // connector
-const parseProcessThreadComposition = require('./java-common/process-thread-composition')
+const parseProcessThreadComposition = require('./process-thread-composition')
 const parsePipedStreamConnection = require('./piped-stream')
 
 module.exports = {

@@ -13,7 +13,7 @@ module.exports = (executionTraceDB, componentList) => {
       })
 
     resolve({
-      AEType: 'ProcessThreadSocketComposition',
+      AEType: 'Composition',
       AEKind: 'composition',
       elementList: connectorList
     })

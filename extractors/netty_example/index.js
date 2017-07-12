@@ -1,10 +1,10 @@
 // component
-const parseProcess = require('./java-common/process')
-const parseThread = require('./java-common/thread')
+const parseProcess = require('./process')
+const parseThread = require('./thread')
 const parseRemoteClient = require('./remote-client')
 
 // connector
-const parseProcessThreadComposition = require('./java-common/process-thread-composition')
+const parseProcessThreadComposition = require('./process-thread-composition')
 const parseNetworkConnection = require('./network-connection')
 
 module.exports = {
